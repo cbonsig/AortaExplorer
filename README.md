@@ -2,6 +2,18 @@
 
 An open source tool for accurate segmentation of the aorta in 3D computed tomography scans. Described in [AortaExplorer: AI-driven analysis of the aorta in CT images](https://link.springer.com/article/10.1007/s11517-026-03535-x)
 
+## About this fork
+
+This is a fork of [RasmusRPaulsen/AortaExplorer](https://github.com/RasmusRPaulsen/AortaExplorer) maintained by [@cbonsig](https://github.com/cbonsig). It contains two compatibility fixes (candidates for upstreaming) and one visualization customization specific to this fork. Aside from the changes below, the tool is unmodified; see the upstream repository for documentation, and cite the original paper (below) if you use it.
+
+| Date | Commit | Type | Change |
+|------|--------|------|--------|
+| 2026-08-13 | `53840a0` | Fix | Folder input crashed on macOS: `multiprocessing.Queue.qsize()` relies on `sem_getvalue()`, which is unimplemented on macOS, so every worker process died with `NotImplementedError`. Queue size polling now falls back gracefully. |
+| 2026-08-13 | `5336aed` | Fix | Aorta analysis crashed on NumPy ≥ 2.0 (any OS): `np.cross()` no longer accepts 2-dimensional vectors, breaking the diameter computation. The scalar 2D cross product is now computed explicitly. |
+| 2026-08-13 | `8a9a457` | Customization | The visualization text panel replaces the Hounsfield unit statistics / aorta volume / surface area block with aortic arch metrics (arch length, min/max arch diameter) from `aorta_statistics.json`. This suits this fork's use case and is not proposed for upstream. |
+
+Tested on macOS (Apple Silicon, `-d 'mps'`) with Python 3.14 and NumPy 2.5.
+
 ![AortaExplorer](https://github.com/RasmusRPaulsen/AortaExplorer/blob/main/figs/aortaexplorer_visualization.png)
 
 **Highlights:**

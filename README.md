@@ -12,7 +12,7 @@ This is a fork of [RasmusRPaulsen/AortaExplorer](https://github.com/RasmusRPauls
 | 2026-08-13 | `5336aed` | Fix | Aorta analysis crashed on NumPy ≥ 2.0 (any OS): `np.cross()` no longer accepts 2-dimensional vectors, breaking the diameter computation. The scalar 2D cross product is now computed explicitly. |
 | 2026-08-13 | `8a9a457` | Customization | The visualization text panel replaces the Hounsfield unit statistics / aorta volume / surface area block with aortic arch metrics (arch length, min/max arch diameter) from `aorta_statistics.json`. This suits this fork's use case and is not proposed for upstream. |
 
-Tested on macOS (Apple Silicon, `-d 'mps'`) with Python 3.14 and NumPy 2.5.
+Tested on macOS (Apple Silicon, `-d 'mps'`) with Python 3.14 and NumPy 2.5. Diagnosis and implementation utilized Claude Fable 5. 
 
 ![AortaExplorer](https://github.com/RasmusRPaulsen/AortaExplorer/blob/main/figs/aortaexplorer_visualization.png)
 

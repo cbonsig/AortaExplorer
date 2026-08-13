@@ -534,19 +534,23 @@ class RenderAortaData(RenderTotalSegmentatorData):
         # else:
         #     cl_length = 0
 
-        aorta_txt = (
-            f"\nAorta HU avg: {aorta_stats.get('avg_hu', 0):.0f} ({aorta_stats.get('cl_mean', 0):.0f})"
-            f"\nstd.dev: {aorta_stats.get('std_hu', 0):.0f} ({aorta_stats.get('cl_std', 0):.0f})\n"
-            f"median: {aorta_stats.get('med_hu', 0):.0f} ({aorta_stats.get('cl_med', 0):.0f})"
-            f"\n99%: {aorta_stats.get('q99_hu', 0):.0f} ({aorta_stats.get('cl_q99', 0):.0f})"
-            f"\n1%: {aorta_stats.get('q01_hu', 0):.0f} ({aorta_stats.get('cl_q01', 0):.0f})"
-            f"\nAorta vol: {aorta_stats.get('tot_vol', 0) / 1000.0:.0f} cm3\nscan type: {scan_type}"
-        )
-        if "surface_area" in aorta_stats:
-            aorta_txt += (
-                f"\nAorta Surface area: {aorta_stats['surface_area'] / 100.0:.1f} cm2\n"
-            )
-        # f'Centerline length: {cl_length / 10.0:.1f} cm\n' \
+        arch_length = aorta_stats.get("aortic_arch_cl_dist")
+        arch_min_diam = aorta_stats.get("aortic_arch_cl_min_diameter")
+        arch_max_diam = aorta_stats.get("aortic_arch_cl_max_diameter")
+
+        aorta_txt = f"\nscan type: {scan_type}\n\nAortic arch:"
+        if arch_length is not None:
+            aorta_txt += f"\nArch length: {arch_length:.0f} mm"
+        else:
+            aorta_txt += "\nArch length: n/a"
+        if arch_min_diam is not None:
+            aorta_txt += f"\nMin diameter: {arch_min_diam:.1f} mm"
+        else:
+            aorta_txt += "\nMin diameter: n/a"
+        if arch_max_diam is not None:
+            aorta_txt += f"\nMax diameter: {arch_max_diam:.1f} mm\n"
+        else:
+            aorta_txt += "\nMax diameter: n/a\n"
 
         self.message_text += aorta_txt
 
